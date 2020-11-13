@@ -207,24 +207,24 @@ class _SignUpPageState extends State<SignUpPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: 30),
+                    SizedBox(height: 40),
                     BezierContainer().title(),
                     SizedBox(height: 20),
                     _emailPasswordWidget(),
-                    SizedBox(height: 30),
+                    SizedBox(height: 20),
                     Container(
-                      child: Row(
+                      child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            CupertinoRadioChoice(
-                                choices: genderMap,
-                                onChange: onGenderSelected,
-                                initialKeyValue: _selectedGender),
-                            SizedBox(width: 10),
+
+
                             Container(
-                              //padding: const EdgeInsets.all(1.0),
-                              child: Theme(
+                              child:Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                              Theme(
                                 data: Theme.of(context).copyWith(
                                   canvasColor: Color(0xff000000),
                                 ),
@@ -234,7 +234,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     width: 1,
                                     color: Colors.white,
                                   ),
-                                  hint:  Text("Select item"),
+                                  hint:  Text("Select country",style: TextStyle(color: Colors.white,fontSize: 16),),
                                   value: selectedUser,
                                   onChanged: (Item Value) {
                                     setState(() {
@@ -247,7 +247,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                       child: Row(
                                         children: <Widget>[
                                           user.icon,
-
                                           Text(
                                             user.name,
                                             style:  TextStyle(color: Colors.white,fontSize: 12),
@@ -258,11 +257,23 @@ class _SignUpPageState extends State<SignUpPage> {
                                   }).toList(),
                                 ),
                               ),
+                              ]),
+                            ),
+
+                            SizedBox(height: 20),
+
+                            Container(
+
+                              child:   CupertinoRadioChoice(
+                                  choices: genderMap,
+                                  onChange: onGenderSelected,
+                                  initialKeyValue: _selectedGender),
+
                             ),
                           ]
                       ),
                     ),
-                    SizedBox(height: 60),
+                    SizedBox(height: 40),
                     _submitButton(),
                     SizedBox(height: height * .030),
                     _loginAccountLabel(),
