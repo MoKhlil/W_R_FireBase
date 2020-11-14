@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'customClipper.dart';
 
 class BezierContainer extends StatelessWidget {
+
+
   const BezierContainer({Key key}) : super(key: key);
-
-
-
   Widget DesignTextFild(String title,TextEditingController control,String Error,bool ErrorVa, {bool isPassword = false}) {
     FocusNode myFocusNode = new FocusNode();
     return
@@ -88,6 +87,32 @@ class BezierContainer extends StatelessWidget {
         )
     );
   }
+  Widget showAlertDialog(String title,String message,BuildContext context) {
 
+    // set up the button
+    Widget okButton = FlatButton(
+        child: Text("OK",style: TextStyle(color: Colors.black)),
+        onPressed: () { Navigator.of(context).pop();  }
+    );
 
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(title,style: TextStyle(color: Colors.black),),
+      content: Text(message,style: TextStyle(color: Colors.black)),
+      elevation: 150.0,
+      //shape: CircleBorder(),
+      backgroundColor: Colors.lime,
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'Conect/APICon.dart';
 import 'Widget/bezierContainer.dart';
 import 'Widget/cupertino_radio_choice.dart';
 import 'loginPage.dart';
@@ -24,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _PAssvalidate = false;
   bool _Mailvalidate = false;
   bool _ConPassvalidate = false;
-
+  Item selectedUser;
   static final Map<String, String> genderMap = {
     'male': 'Male',
     'female': 'Female',
@@ -69,16 +71,13 @@ class _SignUpPageState extends State<SignUpPage> {
       width: 150,
       height: 50,
       child: new RaisedButton(
-
           child: new Text("Register Now", style: TextStyle(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.lime)),
           color: Colors.black,
           splashColor: Colors.lime,
           animationDuration: Duration(seconds: 60),
           padding: EdgeInsets.all(5.0),
-
-          onPressed: () {
-            print(_selectedGender);
+          onPressed: () async {
             setState(() {
               EmailController.text.isEmpty
                   ? _Mailvalidate = true
@@ -95,6 +94,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 ConPassController.text.isEmpty) {
               return;
             }
+            print(selectedUser.name);
+            SharedPreferences localStorage = await SharedPreferences.getInstance();
+            Network().createData(EmailController.text,PasswordController.text,_selectedGender,selectedUser.name);
+            String sien1=localStorage.getString('firreadData');
+            await localStorage.clear();
           },
           shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(18.0),
@@ -108,6 +112,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _loginAccountLabel() {
     return InkWell(
       onTap: () {
+
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage()));
       },
@@ -296,7 +301,6 @@ class Item {
   final String name;
   final Icon icon;
 }
-Item selectedUser;
 
 
 

@@ -33,6 +33,8 @@ dependencies:
   gender_picker: ^1.0.2
   cupertino_radio_choice: 1.0.0+1
   http: any
+  modal_progress_hud: ^0.1.3
+
 firebase_core: any
 
 

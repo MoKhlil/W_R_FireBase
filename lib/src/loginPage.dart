@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_try/src/signup.dart';
 import 'package:flutter_app_try/src/welcomePage.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Conect/APICon.dart';
 import 'Widget/bezierContainer.dart';
@@ -21,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _PAssvalidate = false;
   bool _Mailvalidate = false;
-
+  bool _saving = false;
   Widget _submitButton() {
     return Container(
       width: 150,
@@ -36,25 +37,43 @@ class _LoginPageState extends State<LoginPage> {
 
           onPressed: () async {
             SharedPreferences localStorage = await SharedPreferences.getInstance();
-              Network().readData(EmailController.text);
-            String sien1=localStorage.getString('firreadData');
-            print('1login: ${sien1 }')  ;
-            setState(()     {
+            //localStorage.clear();
+            setState((){
+
               EmailController.text.isEmpty ? _Mailvalidate = true : _Mailvalidate = false;
               PasswordController.text.isEmpty ? _PAssvalidate = true : _PAssvalidate = false;
             });
-
             if(EmailController.text.isEmpty||PasswordController.text.isEmpty)
             {
-              return ;
+               return ;
             }
 
-            if(sien1.replaceAll('"', '') ==PasswordController.text)
+            Network().readData(EmailController.text,PasswordController.text);
+
+
+            print('1login: ${await localStorage.getString('username')  }+${await localStorage.getString('pass')  } + ${await localStorage.getString('ErrorCon')}')  ;
+            setState(() {
+              _saving = true;
+            });
+            if(await localStorage.getString('username')== "true")
             {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => WelcomePage()));
-            };
+              if (await localStorage.getString('pass') == "true")
+              {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => WelcomePage()));
+              }
+            }
+            else{
+            BezierContainer().showAlertDialog("Error","الاسم اوكلمة السر خطء",context)  ;
+            }
+            localStorage.clear();
+            new Future.delayed(new Duration(seconds: 2), () {
+              setState(() {
+                _saving = false;
+              });
+            });
+
           },
           shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(18.0),
@@ -109,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       //resizeToAvoidBottomInset: false, // set it to false
         key: _scaffoldKey,
-        body: Container(
+        body: ModalProgressHUD(child:Container(
           decoration: BoxDecoration(
               boxShadow: <BoxShadow>[
                 BoxShadow(
@@ -154,7 +173,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ],
           ),
-        )
+        ),inAsyncCall: _saving),
+
+
     );
   }
 
