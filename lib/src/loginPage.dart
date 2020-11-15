@@ -87,11 +87,12 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),
-        padding: EdgeInsets.all(15),
-        alignment: Alignment.bottomCenter,
+        padding: EdgeInsets.all(10),
+        alignment: Alignment.topCenter,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
             Text(
                 'Don\'t have an account ?',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white)
@@ -112,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      //resizeToAvoidBottomInset: false, // set it to false
+       resizeToAvoidBottomInset: false, // set it to false
         key: _scaffoldKey,
         body: ModalProgressHUD(child:Container(
           decoration: BoxDecoration(
@@ -143,20 +144,29 @@ class _LoginPageState extends State<LoginPage> {
                   key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
+                      SizedBox(height: 70),
                       BezierContainer().title(),
-                      SizedBox(height: 20),
+                      SizedBox(height: 70),
                       _emailWidget(),
                       SizedBox(height: 20),
                       _submitButton(),
-                      SizedBox(height: height * .030),
-                      _createAccountLabel(),
-
+                   //SizedBox(height:20),
                     ],
                   ),
                 ),
               ),
+          Container(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      _createAccountLabel(),
+                      SizedBox(height:10),
+                      ]
+                ),
+          ),
             ],
           ),
         ),inAsyncCall: _saving),

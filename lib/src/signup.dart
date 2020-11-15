@@ -172,6 +172,7 @@ class _SignUpPageState extends State<SignUpPage> {
         .height;
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       body: Container(
         width: MediaQuery
@@ -213,9 +214,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(height: 40),
+                    SizedBox(height: 70),
                     BezierContainer().title(),
                     SizedBox(height: 20),
                     _emailPasswordWidget(),
@@ -225,8 +226,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-
-
                             Container(
                               child:Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -283,12 +282,21 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     SizedBox(height: 40),
                     _submitButton(),
-                    SizedBox(height: height * .030),
-                    _loginAccountLabel(),
+
+
                   ],
                 ),
               ),
-
+            ),
+            Container(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    _loginAccountLabel(),
+                    SizedBox(height:10),
+                  ]
+              ),
             ),
             Positioned(top: 40, left: 0, child: _backButton()),
           ],
