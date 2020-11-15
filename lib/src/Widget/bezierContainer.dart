@@ -12,15 +12,15 @@ class BezierContainer extends StatelessWidget {
     return
       TextFormField(
         controller: control,
-
+        cursorWidth:10,
         cursorColor: Colors.lime,
         obscureText: isPassword,
-        style: TextStyle(color: Colors.white),
+
+        style: TextStyle(color: Colors.white,height:0.1,),
         decoration: InputDecoration(
           fillColor: Colors.white12,
           filled: true,
           errorText: ErrorVa ? Error : null,
-
           labelText: title,
           labelStyle: TextStyle(
               color: myFocusNode.hasFocus ? Colors.lime : Colors.white
@@ -30,7 +30,7 @@ class BezierContainer extends StatelessWidget {
           //hintStyle: TextStyle(fontSize: 15.0, color: Colors.white),
           border: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.white,
+              color: Colors.white
             ),
           ),
 
@@ -38,6 +38,7 @@ class BezierContainer extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(color: Colors.white12),
           ),
+
           focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(color: Colors.lime),

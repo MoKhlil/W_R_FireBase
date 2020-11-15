@@ -170,15 +170,10 @@ class _SignUpPageState extends State<SignUpPage> {
         .of(context)
         .size
         .height;
-
     return Scaffold(
         resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       body: Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
         decoration: BoxDecoration(
             boxShadow: <BoxShadow>[
               BoxShadow(
@@ -209,7 +204,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   .of(context)
                   .size
                   .width,
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: 15),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -220,12 +215,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     BezierContainer().title(),
                     SizedBox(height: 20),
                     _emailPasswordWidget(),
-                    SizedBox(height: 20),
-                    Container(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
+                    SizedBox(height: 5),
+
                             Container(
                               child:Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -237,7 +228,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                                 child: DropdownButton<Item>(
                                   underline: Container(
-                                    height: 1.5,
+                                    height: 1.1,
                                     width: 1,
                                     color: Colors.white,
                                   ),
@@ -267,7 +258,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               ]),
                             ),
 
-                            SizedBox(height: 20),
+                            SizedBox(height: 10),
 
                             Container(
 
@@ -276,14 +267,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                   onChange: onGenderSelected,
                                   initialKeyValue: _selectedGender),
 
-                            ),
-                          ]
-                      ),
                     ),
-                    SizedBox(height: 40),
+                    SizedBox(height: 90),
                     _submitButton(),
-
-
+                    SizedBox(height: 5),
                   ],
                 ),
               ),
