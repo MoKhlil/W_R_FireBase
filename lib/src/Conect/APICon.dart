@@ -20,21 +20,22 @@ class Network {
     print(Res.body);
   }
 
-  Future<void> createData(String Id,String Pass,String Gender,String Country) async {
+  Future<String> createData(String Id,String Pass,String Gender,String Country) async {
     try
     {
-      await con.child(Id)
-          .set
-        ({
-        'Passowrd': Pass,
-        'Gender': Gender,
-        'Country': Country,
-         });
-      readData(Id,Pass);
+          await con.child(Id)
+              .set
+            ({
+            'Passowrd': Pass,
+            'Gender': Gender,
+            'Country': Country,
+          });
+          return await "true";
     }
     catch  (e)
     {
-      //print('Erreo: ${e.value }');
+      return await "false";
+      print('Erreo: ${e.value }');
     }
 
   }
@@ -45,23 +46,38 @@ class Network {
       final snapshot =await con.child(Id).once();
         print('where: ${snapshot.value["Passowrd"].toString()}');
         if (snapshot.value != null) {
-          getdat('username',"true");
 
           if(snapshot.value['Passowrd'].toString()==Pass)
           {
-            getdat('pass',"true");
-          }
-          else{
-          getdat('pass',"false");
+          return  await "true";
           }
         }
         else{
-          getdat('username',"false");
+          return  await "false";
         }
     }
     catch  (e)
     {
-      getdat('ErrorCon',"true");
+
+      //print('Erreo: ${e.value }');
+    }
+
+  }
+
+  Future<String> Checkuser(String Id)   async {
+    try
+    {
+      final snapshot =await con.child(Id).once();
+      if (snapshot.value != null) {
+          return  await "true";
+      }
+      else{
+        return  await "false";
+      }
+    }
+    catch  (e)
+    {
+
       //print('Erreo: ${e.value }');
     }
 

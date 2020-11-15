@@ -34,12 +34,9 @@ class _LoginPageState extends State<LoginPage> {
           splashColor: Colors.lime,
           animationDuration: Duration(seconds: 60),
           padding: EdgeInsets.all(5.0),
-
           onPressed: () async {
-            SharedPreferences localStorage = await SharedPreferences.getInstance();
             //localStorage.clear();
             setState((){
-
               EmailController.text.isEmpty ? _Mailvalidate = true : _Mailvalidate = false;
               PasswordController.text.isEmpty ? _PAssvalidate = true : _PAssvalidate = false;
             });
@@ -47,40 +44,29 @@ class _LoginPageState extends State<LoginPage> {
             {
                return ;
             }
-
-            Network().readData(EmailController.text,PasswordController.text);
-
-
-            print('1login: ${await localStorage.getString('username')  }+${await localStorage.getString('pass')  } + ${await localStorage.getString('ErrorCon')}')  ;
             setState(() {
               _saving = true;
             });
-            if(await localStorage.getString('username')== "true")
+            if(await Network().readData(EmailController.text,PasswordController.text)== "true")
             {
-              if (await localStorage.getString('pass') == "true")
-              {
                 Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => WelcomePage()));
-              }
             }
             else{
             BezierContainer().showAlertDialog("Error","الاسم اوكلمة السر خطء",context)  ;
             }
-            localStorage.clear();
             new Future.delayed(new Duration(seconds: 2), () {
               setState(() {
                 _saving = false;
               });
             });
-
           },
           shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(18.0),
             side: BorderSide(color: Colors.white),
           )
       ),
-
     );
   }
 

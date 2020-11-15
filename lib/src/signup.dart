@@ -94,11 +94,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 ConPassController.text.isEmpty) {
               return;
             }
-            print(selectedUser.name);
-            SharedPreferences localStorage = await SharedPreferences.getInstance();
-            Network().createData(EmailController.text,PasswordController.text,_selectedGender,selectedUser.name);
-            String sien1=localStorage.getString('firreadData');
-            await localStorage.clear();
+            if(await Network().Checkuser(EmailController.text)=="true"){ BezierContainer().showAlertDialog("Error","الاسم مستخدم",context);return;}
+          if(  await Network().createData(EmailController.text,PasswordController.text,_selectedGender,selectedUser.name)=="true")
+            {
+              BezierContainer().showAlertDialog("Done","تم انشاء الحساب",context)  ;
+            }
+          else{
+            BezierContainer().showAlertDialog("Error","حدث خطء يرجى اعادة المحاولة",context)  ;
+          }
           },
           shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(18.0),
