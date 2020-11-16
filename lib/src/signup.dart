@@ -22,18 +22,15 @@ class _SignUpPageState extends State<SignUpPage> {
   final EmailController = TextEditingController();
   final ConPassController = TextEditingController();
 
-
   bool _PAssvalidate = false;
   bool _Mailvalidate = false;
   bool _ConPassvalidate = false;
   Item selectedUser;
+
   static final Map<String, String> genderMap = {
     'male': 'Male',
     'female': 'Female',
   };
-
-
-
 
   void onGenderSelected(String genderKey) {
     setState(() {
@@ -166,129 +163,124 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+
     final height = MediaQuery
         .of(context)
         .size
         .height;
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false, // set it to false
       key: _scaffoldKey,
-      body: Container(
-        decoration: BoxDecoration(
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.grey.shade200,
-                  offset: Offset(2, 4),
-                  blurRadius: 5,
-                  spreadRadius: 2)
-            ],
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFF000000), Color(0xFF000000)]
-              //colors: [Color(0xffffd600), Color(0xffffd600)]
-            )
-        ),
-        height: height,
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-                top: -height * .10,
-                right: -MediaQuery
-                    .of(context)
-                    .size
-                    .width * .5,
-                child: BezierContainer()),
-            Container(
-              width: MediaQuery
+        body: Container(
+          decoration: BoxDecoration(
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                    color: Colors.grey.shade200,
+                    offset: Offset(2, 4),
+                    blurRadius: 5,
+                    spreadRadius: 2)
+              ],
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFF000000), Color(0xFF000000)]
+                //colors: [Color(0xffffd600), Color(0xffffd600)]
+              )
+          ),
+          height: height,
+          child: Stack(
+              children: <Widget>[
+          Positioned(
+          top: -height * .10,
+              right: -MediaQuery
                   .of(context)
                   .size
-                  .width,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 70),
-                    BezierContainer().title(),
-                    SizedBox(height: 20),
-                    _emailPasswordWidget(),
-                    SizedBox(height: 5),
+                  .width * .5,
+              child: BezierContainer()),
 
-                            Container(
-                              child:Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                              Theme(
-                                data: Theme.of(context).copyWith(
-                                  canvasColor: Color(0xff000000),
-                                ),
-                                child: DropdownButton<Item>(
-                                  underline: Container(
-                                    height: 1.1,
-                                    width: 1,
-                                    color: Colors.white,
-                                  ),
-                                  hint:  Text("Select country",style: TextStyle(color: Colors.white,fontSize: 16),),
-                                  value: selectedUser,
-                                  onChanged: (Item Value) {
-                                    setState(() {
-                                      selectedUser = Value;
-                                    });
-                                  },
-                                  items: users.map((Item user) {
-                                    return  DropdownMenuItem<Item>(
-                                      value: user,
-                                      child: Row(
-                                        children: <Widget>[
-                                          user.icon,
-                                          Text(
-                                            user.name,
-                                            style:  TextStyle(color: Colors.white,fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                              ]),
-                            ),
-
-                            SizedBox(height: 10),
-
-                            Container(
-
-                              child:   CupertinoRadioChoice(
-                                  choices: genderMap,
-                                  onChange: onGenderSelected,
-                                  initialKeyValue: _selectedGender),
-
+    Container(
+    child: Form(
+     key: _formKey,
+    child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 70),
+          BezierContainer().title(),
+          SizedBox(height: 70),
+          _emailPasswordWidget(),
+          Container(
+            child:Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Theme(
+                    data: Theme.of(context).copyWith(
+                      canvasColor: Color(0xff000000),
                     ),
-                    SizedBox(height: 90),
-                    _submitButton(),
-                    SizedBox(height: 5),
-                  ],
+                    child: DropdownButton<Item>(
+                      underline: Container(
+                        height: 1.1,
+                        width: 1,
+                        color: Colors.white,
+                      ),
+                      hint:  Text("Select country",style: TextStyle(color: Colors.white,fontSize: 16),),
+                      value: selectedUser,
+                      onChanged: (Item Value) {
+                        setState(() {
+                          selectedUser = Value;
+                        });
+                      },
+                      items: users.map((Item user) {
+                        return  DropdownMenuItem<Item>(
+                          value: user,
+                          child: Row(
+                            children: <Widget>[
+                              user.icon,
+                              Text(
+                                user.name,
+                                style:  TextStyle(color: Colors.white,fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ]),
+          ),
+
+          Container(
+
+            child:   CupertinoRadioChoice(
+                choices: genderMap,
+                onChange: onGenderSelected,
+                initialKeyValue: _selectedGender),
+
+          ),
+
+          SizedBox(height:30),
+          _submitButton(),
+          ]
+    ),
+    ),
+    ),
+
+                Container(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        _loginAccountLabel(),
+                        SizedBox(height:10),
+                      ]
+                  ),
                 ),
-              ),
-            ),
-            Container(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    _loginAccountLabel(),
-                    SizedBox(height:10),
-                  ]
-              ),
-            ),
-            Positioned(top: 40, left: 0, child: _backButton()),
-          ],
+                Positioned(top: 40, left: 0, child: _backButton()),
+              ]
+          ),
+
         ),
-      ),
     );
   }
 

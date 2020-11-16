@@ -56,7 +56,7 @@ packages:
       name: cupertino_radio_choice
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0+1"
+    version: "1.0.0+2"
   device_id:
     dependency: "direct main"
     description:
@@ -356,7 +356,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.3"
+    version: "1.7.4"
   xdg_directories:
     dependency: transitive
     description:
