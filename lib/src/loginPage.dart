@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Conect/APICon.dart';
 import 'Widget/bezierContainer.dart';
 
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
   final String title;
@@ -20,9 +21,17 @@ class _LoginPageState extends State<LoginPage> {
   final PasswordController = TextEditingController();
   final EmailController = TextEditingController();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+
+
+
+
   bool _PAssvalidate = false;
   bool _Mailvalidate = false;
   bool _saving = false;
+
+  var encrypter;
+
   Widget _submitButton() {
     return Container(
       width: 150,
@@ -35,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
           animationDuration: Duration(seconds: 60),
           padding: EdgeInsets.all(5.0),
           onPressed: () async {
+
             //localStorage.clear();
             setState((){
               EmailController.text.isEmpty ? _Mailvalidate = true : _Mailvalidate = false;

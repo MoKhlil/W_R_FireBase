@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:encrypt/encrypt.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_database/firebase_database.dart';
@@ -10,6 +11,10 @@ class Network {
   //if you are using android studio emulator, change localhost to 10.0.2.2
   var token;
 
+  final keyy = Key.fromLength(32);
+  final iv = IV.fromLength(12);
+  get encrypter => Encrypter(AES(keyy));
+
   Future<String> fetchAlbum(var x) async {
     http.Response Res = await http.get(
         Uri.encodeFull('https://jsonplaceholder.typicode.com/posts'),
@@ -20,13 +25,15 @@ class Network {
     print(Res.body);
   }
 
+
+
   Future<String> createData(String Id,String Pass,String Gender,String Country) async {
     try
     {
           await con.child(Id)
               .set
             ({
-            'Passowrd': Pass,
+            'Passowrd': encrypted(Pass),
             'Gender': Gender,
             'Country': Country,
           });
@@ -46,8 +53,7 @@ class Network {
       final snapshot =await con.child(Id).once();
         print('where: ${snapshot.value["Passowrd"].toString()}');
         if (snapshot.value != null) {
-
-          if(snapshot.value['Passowrd'].toString()==Pass)
+          if(snapshot.value['Passowrd'].toString()==encrypted(Pass))
           {
           return  await "true";
           }
@@ -92,4 +98,10 @@ class Network {
     localStorage.setString(Key,Value);
 
   }
-}
+
+  encrypted ( String pass)
+  {
+    final  encrypted =  encrypter.encrypt(pass, iv: iv);
+       return  encrypted.base64;
+  }
+  }

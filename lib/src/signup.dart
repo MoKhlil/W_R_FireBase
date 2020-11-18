@@ -91,12 +91,24 @@ class _SignUpPageState extends State<SignUpPage> {
                 ConPassController.text.isEmpty) {
               return;
             }
-            if(await Network().Checkuser(EmailController.text)=="true"){ BezierContainer().showAlertDialog("Error","الاسم مستخدم",context);return;}
+            if(await Network().Checkuser(EmailController.text)=="true")
+            {
+              Network().getdat("Done","0");
+              BezierContainer().showAlertDialog("Error","الاسم مستخدم",context);return;
+            }
+            if( PasswordController.text!= ConPassController.text)
+            {
+              Network().getdat("Done","0");
+              BezierContainer().showAlertDialog("Error","كلمة السر غير مطابقة",context);return;
+            }
+
           if(  await Network().createData(EmailController.text,PasswordController.text,_selectedGender,selectedUser.name)=="true")
             {
+              Network().getdat("Done","1");
               BezierContainer().showAlertDialog("Done","تم انشاء الحساب",context)  ;
             }
           else{
+            Network().getdat("Done","0");
             BezierContainer().showAlertDialog("Error","حدث خطء يرجى اعادة المحاولة",context)  ;
           }
           },
@@ -112,7 +124,6 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _loginAccountLabel() {
     return InkWell(
       onTap: () {
-
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage()));
       },
@@ -147,12 +158,12 @@ class _SignUpPageState extends State<SignUpPage> {
             "Username", EmailController, "Username Value Can\'t Be Empty",
             _Mailvalidate, isPassword: false),
 
-        SizedBox(height: 10),
+        SizedBox(height: 20),
         BezierContainer().DesignTextFild(
             "Password", PasswordController, "Password Value Can\'t Be Empty",
             _PAssvalidate, isPassword: true),
 
-        SizedBox(height: 10),
+        SizedBox(height: 20),
         BezierContainer().DesignTextFild("ConfermPassword", ConPassController,
             "ConfermPassword Value Can\'t Be Empty", _ConPassvalidate,
             isPassword: true),
@@ -256,9 +267,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 choices: genderMap,
                 onChange: onGenderSelected,
                 initialKeyValue: _selectedGender),
-
           ),
-
           SizedBox(height:30),
           _submitButton(),
           ]

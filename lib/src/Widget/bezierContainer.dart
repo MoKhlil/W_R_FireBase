@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../loginPage.dart';
 import 'customClipper.dart';
 
 class BezierContainer extends StatelessWidget {
@@ -89,12 +91,24 @@ class BezierContainer extends StatelessWidget {
         )
     );
   }
-  Widget showAlertDialog(String title,String message,BuildContext context) {
+  Widget showAlertDialog(String title,String message,BuildContext context)  {
 
     // set up the button
-    Widget okButton = FlatButton(
-        child: Text("OK",style: TextStyle(color: Colors.black)),
-        onPressed: () { Navigator.of(context).pop();  }
+    Widget okButton = OutlineButton(
+      color: Colors.white,
+        child: Text("Ok",style: TextStyle(color: Colors.black)),
+        shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(30.0)
+        ),
+        onPressed: () async {
+          SharedPreferences localStorage = await SharedPreferences.getInstance();
+          if(localStorage.getString("Done")=="1") {
+            Navigator.push( context, MaterialPageRoute(builder: (context) => LoginPage()));
+          }
+          else {
+            Navigator.of(context).pop();
+          }
+        }
     );
 
     // set up the AlertDialog
@@ -112,6 +126,7 @@ class BezierContainer extends StatelessWidget {
     // show the dialog
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return alert;
       },
@@ -122,61 +137,4 @@ class BezierContainer extends StatelessWidget {
 
 }
 
-List<RadioModel> sampleData = new List<RadioModel>();
-void initState() {
-  // TODO: implement initState
-  //super.initState();
-  sampleData.add(new RadioModel(false, 'A', 'April 18'));
-  sampleData.add(new RadioModel(false, 'B', 'April 17'));
 
-}
-class RadioItem extends StatelessWidget {
-  final RadioModel _item;
-  RadioItem(this._item);
-  @override
-  Widget build(BuildContext context) {
-    return new Container(
-      margin: new EdgeInsets.all(15.0),
-      child: new Row(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          new Container(
-            height: 50.0,
-            width: 50.0,
-            child: new Center(
-              child: new Text(_item.buttonText,
-                  style: new TextStyle(
-                      color:
-                      _item.isSelected ? Colors.white : Colors.black,
-                      //fontWeight: FontWeight.bold,
-                      fontSize: 18.0)),
-            ),
-            decoration: new BoxDecoration(
-              color: _item.isSelected
-                  ? Colors.blueAccent
-                  : Colors.transparent,
-              border: new Border.all(
-                  width: 1.0,
-                  color: _item.isSelected
-                      ? Colors.blueAccent
-                      : Colors.grey),
-              borderRadius: const BorderRadius.all(const Radius.circular(2.0)),
-            ),
-          ),
-          new Container(
-            margin: new EdgeInsets.only(left: 10.0),
-            child: new Text(_item.text),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class RadioModel {
-  bool isSelected;
-  final String buttonText;
-  final String text;
-
-  RadioModel(this.isSelected, this.buttonText, this.text);
-}
