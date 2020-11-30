@@ -121,35 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _loginAccountLabel() {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
-      },
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 20),
-        padding: EdgeInsets.all(0),
-        alignment: Alignment.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-                'Already have an account ?', style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              'Login', style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.lime),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+
 
   Widget _emailPasswordWidget() {
     return Column(
@@ -208,8 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   .size
                   .width * .5,
               child: BezierContainer()),
-
-    Container(
+          Container(
     child: Form(
      key: _formKey,
     child: Column(
@@ -269,28 +240,37 @@ class _SignUpPageState extends State<SignUpPage> {
                 initialKeyValue: _selectedGender),
           ),
           SizedBox(height:30),
-          _submitButton(),
+
           ]
     ),
     ),
     ),
-
                 Container(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.end,
+alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.only(
+
+                    bottom: 40, // so that the whole thing always move +10
+                  ),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        _loginAccountLabel(),
-                        SizedBox(height:10),
+                        _submitButton(),
+
                       ]
                   ),
                 ),
+
                 Positioned(top: 40, left: 0, child: _backButton()),
+
               ]
           ),
 
+
         ),
+
     );
+
   }
 
 }

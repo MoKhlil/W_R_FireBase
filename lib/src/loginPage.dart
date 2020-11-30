@@ -148,25 +148,27 @@ class _LoginPageState extends State<LoginPage> {
                   top: -height * .10,
                   right: -MediaQuery.of(context).size.width * .5,
                   child: BezierContainer()),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(height: 70),
-                      BezierContainer().title(),
-                      SizedBox(height: 70),
-                      _emailWidget(),
-                      SizedBox(height: 20),
-                      _submitButton(),
-                   //SizedBox(height:20),
-                    ],
-                  ),
-                ),
-              ),
+          Container(
+           // alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(
+              top: 10,
+              left: 10,
+              right: 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom  , // so that the whole thing always move +10
+            ),
+            child: Column(
+               crossAxisAlignment: CrossAxisAlignment.center,
+               mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                BezierContainer().title(),
+                SizedBox(height: 30),
+                _emailWidget(),
+                 SizedBox(height: 20),
+                _submitButton(),
+                //SizedBox(height:20),
+              ],
+            ),
+          ),
           Container(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
